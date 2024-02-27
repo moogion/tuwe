@@ -26,6 +26,7 @@ jobs:
     
     - name: Install vcpkg
       run: |
+        ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh
         ${{ github.workspace }}/vcpkg/vcpkg install --dry-run
         echo "VCPKG_ROOT=${{ github.workspace }}/vcpkg" >> $GITHUB_ENV
 
