@@ -10,6 +10,11 @@ set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
+# force Unicode over Multi-byte
+if(COMPILER_MSVC)
+    add_definitions(-DUNICODE -D_UNICODE)
+endif()
+
 add_subdirectory(src)
 
 if(BUILD_TESTING)
