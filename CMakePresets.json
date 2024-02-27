@@ -1,0 +1,24 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "Build with vcpkg",
+            "description": "Sets Ninja generator, build and install directory",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/install/${presetName}"
+            }
+        },
+        {
+            "name": "x64-mingw",
+            "inherits": "default",
+            "displayName": "Build x64 Mingw with vcpkg",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-mingw-static"
+            }
+        }
+    ]
+}
