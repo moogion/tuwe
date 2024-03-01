@@ -13,10 +13,11 @@
             }
         },
         {
-            "name": "x64-mingw",
+            "name": "x64-mingw-debug",
             "inherits": "default",
-            "displayName": "Build x64 Mingw with vcpkg",
+            "displayName": "Debug MinGW-w64 with vcpkg",
             "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
                 "VCPKG_TARGET_TRIPLET": "x64-mingw-static"
             }
         }
