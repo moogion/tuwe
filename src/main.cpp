@@ -1,8 +1,6 @@
-// Copyright 2020 Arthur Sonzogni. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found in
-// the LICENSE file.
 #include <memory>  // for allocator, __shared_ptr_access, shared_ptr
 #include <string>  // for string 
+#include <stdlib.h>
 #include "ftxui/component/captured_mouse.hpp"  // for ftxui
 #include "ftxui/component/component.hpp"       // for Button, Renderer, Vertical
 #include "ftxui/component/component_options.hpp"   // for ButtonOption
@@ -11,75 +9,133 @@
 #include "ftxui/screen/color.hpp"  // for Color, Color::Default, Color::GrayDark, Color::White
 #include "ftxui/component/component_base.hpp"  // for ComponentBase, Component
 #include "ftxui/dom/elements.hpp"  // for operator|, separator, text, Element, flex, vbox, border
+using namespace std;
+using namespace ftxui; 
  
 int main() {
+
+  //Data
   int g = 0;
-  using namespace ftxui;
- //button
-//   auto buttons = Container::Tab({
-//     // Button(
-//     //   "Krill", [&] ,ButtonOption::Animated(Color::Green)),
-// });
-  int h = 10;
-  int s = 125;
-  int v = 150;
+  string colortest = "50";
+  string help = "";
+  string userText = "";
+  int humidity = 80;
+  int h = 1;
+  int s = 220;
+  int v = 200;
   int counter = 0;
-  auto colder = [&] {
-    h += 10;
-    //red -= 10; 
-   };
-  auto hotter = [&] { 
-    h -= 10;
-    //red += 10; 
-    };
- // auto colorchange
-  
+
+  //
+ 
+  Component input_colortest = Input(&help, "Color");
+  Component input_user = Input(&userText, "ENTER: ");
+ 
+  auto wtf = [&]{
+    int temp = stoi(help);
+    if (temp<=0){
+      h = 120 + 0.8 * abs(temp);
+    }
+    else{
+      h = 287 - 0.8 * abs(temp);
+    }
+  };
+
+  auto InputBox = Container::Vertical({
+    input_user,
+  });
+
   auto style = ButtonOption::Animated(Color::Default, Color::DarkSlateGray1,
                                       Color::GrayDark, Color::White);
- 
-  auto container = Container::Vertical({
-    Button("Colder " , colder, style),
-    Button("Hotter " , hotter, style),
+
+  Component humiditySlider =   Slider( "Влажность: " , &humidity , 0 , 100 , 1 );
+  Component buttonuser = Button("Enter " , wtf, style);
+
+  auto Container1 = Container::Vertical({
+    buttonuser,
+    input_colortest,
   });
-  // for (int i = 1; i < 2; ++i) {
-  //   auto button = Button("Button " + std::to_string(i), on_click, style);
-  //   container->Add(button);
-  // }
- 
-  auto rendener = Renderer(container, [&] {
+
+  auto input_renderer = Renderer(InputBox, [&] {
     return vbox({
+      vbox({
+        hbox({
+          filler(),
+          text("Enter:"),
+          filler(),
+         }),
+        hbox({
+          filler(),
+          input_user -> Render(),
+          filler(),
+        }),
+      }),
+    });
+  });
+
+  auto next_rendener = Renderer(Container1, [&] {
+    return vbox({
+
               hbox({
                 filler(),
-               color(Color::Gold1,text("TUWE")),
+               color(Color::NavajoWhite1,text("TUWE")),
                filler(),
               }),
+
               hbox({
                 filler(),
                color(Color::SkyBlue2 , text("Their Unbelievable Wisdom is Extraordinary")),
                filler(),
+               
               }),
-               separatorHSelector(0,1000,Color::CadetBlueBis,Color::CadetBlueBis),
-                              hbox({
+
+               separatorHSelector(0,1000,Color::White,Color::White),
+
+              hbox({
                   filler(),
-                  color(Color::HSV(h, s, v ),text("NIZHNY NOVGOROD")),
-                  filler(),
+                  color(Color::HSV(h, s, v ),text("NIZHNY NOVGOROD"))|border,
+                  filler(),  
                }),
 
                separator(),
+               vbox({
+                  filler(),
+                  text("Температура: " + help),
+                  filler(),
+                  humiditySlider->Render(),
+                  filler(),
+                  
+               })|border,
+
                hbox({
                 filler(),
-               container->Render() | vscroll_indicator | frame |
-                   size(HEIGHT, LESS_THAN, 40) ,
-              // ButtonColder -> Render(),
+                vbox({
                 filler(),
-              // ButtonHotter -> Render() ,
-              // filler(),
+                buttonuser->Render() | vscroll_indicator | frame ,
+                filler(),
+                input_colortest->Render(),
+                filler(),
+                }),                
+                filler(),
                }),
-               
            }) |
-           borderStyled(DOUBLE, Color::CadetBlueBis);
+           borderStyled(DOUBLE, Color::White);
+  });
+
+  auto mainContainer = Container::Vertical({
+    next_rendener,
+    input_renderer,
+  });
+
+  auto main_rendener = Renderer(mainContainer, [&] {
+    Element document = input_renderer -> Render();
+
+    if (userText == "Нижний"){
+      document = next_rendener -> Render();
+    }
+    return document;
   });
  
+  
   auto screen = ScreenInteractive::Fullscreen();
-  screen.Loop(rendener);
+  screen.Loop(main_rendener);
 }
