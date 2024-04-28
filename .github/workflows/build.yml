@@ -93,6 +93,14 @@ jobs:
       - name: Testing 🐛 CMake
         working-directory: ${{github.workspace}}/build
         run: ctest -C ${{matrix.build_type}}
+      
+      - name: Export 📄 Logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: "vcpkg-buildlogs-${{ matrix.build_type }}-${{ matrix.vcpkg_triplet }}"
+          path: ${{ env.VCPKG_ROOT }}/buildtrees/**/*.log
+
 
   # build-windows:
   #   name: Build 🪟 Windows
