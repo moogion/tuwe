@@ -46,10 +46,10 @@ jobs:
 
           readonly packages=(
             build-essential
-            gcc
             cmake
             ninja-build
             clang
+            libc++-dev
           )
           sudo apt-get install -y ${packages[@]}
 
