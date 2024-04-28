@@ -4,6 +4,6 @@ set(VCPKG_LIBRARY_LINKAGE static)
 
 set(VCPKG_CMAKE_SYSTEM_NAME Linux)
 
-set(CLANG_TARGET_TRIPLE "aarch64-linux-gnu")
+set(CLANG_TARGET_TRIPLE "arm64-linux-gnu")
 
 include("${CMAKE_CURRENT_LIST_DIR}/common.cmake")
