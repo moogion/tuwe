@@ -39,6 +39,7 @@ if(NOT _VCPKG_CLANG_TOOLCHAIN)
         set(CMAKE_SYSTEM_NAME Windows CACHE STRING "" FORCE)
         add_definitions("-municode")
     endif()
+
     string(TOLOWER "${CMAKE_SYSTEM_NAME}" CMAKE_SYSTEM_NAME)
 
     if(NOT DEFINED CMAKE_SYSTEM_PROCESSOR)
@@ -68,6 +69,10 @@ if(NOT _VCPKG_CLANG_TOOLCHAIN)
     endif()
 
     add_compile_options("-stdlib=libc++")
+
+    if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        set(CMAKE_SYSROOT "/usr/${CLANG_TARGET_TRIPLE}")
+    endif()
 
     # Don't run the linker on compiler check
     set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
