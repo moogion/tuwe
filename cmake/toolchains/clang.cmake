@@ -70,10 +70,6 @@ if(NOT _VCPKG_CLANG_TOOLCHAIN)
 
     add_compile_options("-stdlib=libc++")
 
-    if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-        set(CMAKE_SYSROOT "/usr/${CLANG_TARGET_TRIPLE}")
-    endif()
-
     # Don't run the linker on compiler check
     set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
