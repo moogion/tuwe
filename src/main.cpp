@@ -127,11 +127,11 @@ int main() {
   });
 
   auto main_rendener = Renderer(mainContainer, [&] {
-    Element document = input_renderer -> Render();
-
-    if (userText == "Нижний"){
-      document = next_rendener -> Render();
-    }
+    Element document = next_rendener -> Render();
+    //document = next_rendener -> Render();
+    // if (userText == "Нижний"){
+    //   document = next_rendener -> Render();
+    // }
     return document;
   });
  
