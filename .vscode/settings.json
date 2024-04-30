@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "string": "cpp"
+        "string": "cpp",
+        "bitset": "cpp",
+        "cstddef": "cpp",
+        "new": "cpp"
     }
 }
