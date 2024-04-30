@@ -12,31 +12,46 @@
 using namespace std;
 using namespace ftxui; 
  
-int main() {
+class MainWindow{
+  public:
+    //Data
+    
 
-  //Data
+  void windowBodyRender(){
   int g = 0;
+
+  //Strings to something
   string colortest = "50";
   string help = "";
   string userText = "";
+  string usertoa = "";
+
   int humidity = 80;
-  int h = 1;
-  int s = 220;
-  int v = 200;
+
+  //colours for text
+  int colorH = 1;
+  int colorS = 220;
+  int colorV = 200;
+
+  //SIZE OF 
+  const int sizex = 20;
+  const int sizey = 3;
+
   int counter = 0;
 
-  //
- 
+  //input components
   Component input_colortest = Input(&help, "Color");
   Component input_user = Input(&userText, "ENTER: ");
- 
+  Component user_to_answer = Input(&usertoa, "Enter your request: ");
+  
+  //city name color changing func
   auto wtf = [&]{
     int temp = stoi(help);
     if (temp<=0){
-      h = 120 + 0.8 * abs(temp);
+      colorH = 120 + 0.8 * abs(temp);
     }
     else{
-      h = 287 - 0.8 * abs(temp);
+      colorH = 287 - 0.8 * abs(temp);
     }
   };
 
@@ -53,6 +68,7 @@ int main() {
   auto Container1 = Container::Vertical({
     buttonuser,
     input_colortest,
+    user_to_answer,
   });
 
   auto input_renderer = Renderer(InputBox, [&] {
@@ -75,50 +91,69 @@ int main() {
   auto next_rendener = Renderer(Container1, [&] {
     return vbox({
 
-              hbox({
-                filler(),
-               color(Color::NavajoWhite1,text("TUWE")),
-               filler(),
-              }),
+    hbox({
+      filler(),
+          color(Color::NavajoWhite1,text("TUWE")),
+      filler(),
+    }),
 
-              hbox({
-                filler(),
-               color(Color::SkyBlue2 , text("Their Unbelievable Wisdom is Extraordinary")),
-               filler(),
-               
-              }),
+    hbox({
+      filler(),
+            color(Color::SkyBlue2 , text("Their Unbelievable Wisdom is Extraordinary")),
+      filler(),
+      
+    }),
 
-               separatorHSelector(0,1000,Color::White,Color::White),
+      separatorHSelector(0,1000,Color::White,Color::White),
 
-              hbox({
-                  filler(),
-                  color(Color::HSV(h, s, v ),text("NIZHNY NOVGOROD"))|border,
-                  filler(),  
-               }),
+    hbox({
+        filler(),
+        color(Color::HSV(colorH, colorS, colorV ),text("NIZHNY NOVGOROD"))|border,
+        filler(),  
+      }),
 
-               separator(),
-               vbox({
-                  filler(),
-                  text("Температура: " + help),
-                  filler(),
-                  humiditySlider->Render(),
-                  filler(),
-                  
-               })|border,
+      separator(),
 
-               hbox({
-                filler(),
-                vbox({
-                filler(),
-                buttonuser->Render() | vscroll_indicator | frame ,
-                filler(),
-                input_colortest->Render(),
-                filler(),
-                }),                
-                filler(),
-               }),
-           }) |
-           borderStyled(DOUBLE, Color::White);
+      hbox({
+      vbox({
+        filler(),
+        text("Температура: " + help),
+        filler(),
+        //humiditySlider->Render() ,
+        //filler(),
+        
+      })|border|size(WIDTH, EQUAL, sizex)|size(HEIGHT, EQUAL, sizey),
+
+      vbox({
+      filler(),
+        
+        humiditySlider->Render() ,
+        filler(),
+      })|border|size(WIDTH, EQUAL, sizex)|size(HEIGHT, EQUAL, sizey),
+
+      }),
+
+    hbox({
+      filler(),
+      vbox({
+      filler(),
+      buttonuser->Render() | vscroll_indicator | frame ,
+      filler(),
+      input_colortest->Render(),
+      filler(),
+      }),                
+      filler(),
+    }),
+
+  filler(),
+
+    hbox({
+      filler(),
+      user_to_answer->Render(),
+      filler(),
+    }),
+  }) |
+  borderStyled(DOUBLE, Color::White);
   });
 
   auto mainContainer = Container::Vertical({
@@ -127,8 +162,9 @@ int main() {
   });
 
   auto main_rendener = Renderer(mainContainer, [&] {
-    Element document = next_rendener -> Render();
-    //document = next_rendener -> Render();
+    Element document = input_renderer -> Render();
+    //lazy dont care
+    document = next_rendener -> Render();
     // if (userText == "Нижний"){
     //   document = next_rendener -> Render();
     // }
@@ -138,4 +174,18 @@ int main() {
   
   auto screen = ScreenInteractive::Fullscreen();
   screen.Loop(main_rendener);
+  }
+};
+
+
+int main() {
+  // Window1 * Window2 = new Window1();
+
+  // Window2->windowEx();
+
+
+  shared_ptr<MainWindow> window(new MainWindow());
+
+  window->windowBodyRender();
+  
 }
