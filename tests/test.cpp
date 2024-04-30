@@ -1,5 +1,5 @@
 #include <iostream>
 
 int main(int, char**){
-    std::cout << "Hello, from TuweTest!";
+    std::cout << "Hello, from uweTest!";
 }
