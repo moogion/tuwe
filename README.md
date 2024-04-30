@@ -1,3 +1,3 @@
 # tuwe
-Develop branch
+Develop tui class branch
 Terminal user weather explorer
