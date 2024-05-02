@@ -2,14 +2,10 @@ if(NOT _VCPKG_CLANG_TOOLCHAIN)
     set(_VCPKG_CLANG_TOOLCHAIN 1)
 
     # check if the user has set the LLVM_DIR environment variable
-    if(DEFINED ENV{LLVM_DIR})
-        list(APPEND CMAKE_PROGRAM_PATH "$ENV{LLVM_DIR}")
-    endif()
+    list(APPEND CMAKE_PROGRAM_PATH "$ENV{LLVM_DIR}")
 
     # check if the user has set the LLVMInstallDir environment variable
-    if(DEFINED ENV{LLVMInstallDir})
-        list(APPEND CMAKE_PROGRAM_PATH "$ENV{LLVMInstallDir}")
-    endif()
+    list(APPEND CMAKE_PROGRAM_PATH "$ENV{LLVMInstallDir}")
 
     # find clang and clang++ executables
     find_program(CLANG_EXECUTABLE "clang" PATHS "${CMAKE_PROGRAM_PATH}" ENV PATH PATH_SUFFIXES "bin")
@@ -22,6 +18,14 @@ if(NOT _VCPKG_CLANG_TOOLCHAIN)
     else()
         set(CMAKE_C_COMPILER "${CLANG_EXECUTABLE}" CACHE FILEPATH "C Compiler")
         set(CMAKE_ASM_COMPILER "${CLANG_EXECUTABLE}" CACHE FILEPATH "ASM Compiler")
+
+        # Determine the LLVM directory
+        if(NOT DEFINED LLVM_DIR)
+            get_filename_component(LLVM_DIR "${CLANG_EXECUTABLE}" DIRECTORY)
+            if(LLVM_DIR MATCHES "bin$")
+                get_filename_component(LLVM_DIR "${LLVM_DIR}" DIRECTORY)
+            endif()
+        endif()
     endif()
 
     # set C++ compiler
@@ -68,15 +72,10 @@ if(NOT _VCPKG_CLANG_TOOLCHAIN)
         endforeach()
     endif()
 
-    add_compile_options("-stdlib=libc++")
-
     # Don't run the linker on compiler check
     set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-    # Search for programs in the build host directories
-    set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-
-    # For libraries and headers in the target directories
-    set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-    set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+    if(DEFINED LLVM_DIR)
+        set(CMAKE_SYSROOT "${LLVM_DIR}" CACHE PATH "Sysroot")
+    endif()
 endif()
