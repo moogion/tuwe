@@ -76,6 +76,6 @@ if(NOT _VCPKG_CLANG_TOOLCHAIN)
     set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
     if(DEFINED LLVM_DIR)
-        set(CMAKE_SYSROOT "${LLVM_DIR}" CACHE PATH "Sysroot")
+        set(CMAKE_FIND_ROOT_PATH "${LLVM_DIR}" CACHE PATH "Sysroot")
     endif()
 endif()
