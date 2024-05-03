@@ -15,8 +15,10 @@ using namespace ftxui;
 class MainWindow{
   public:
     //Data
-    
-
+    string usertoa = "fuck";
+  void dataReturn(){
+    cout << usertoa << endl;
+  }
   void windowBodyRender(){
   int g = 0;
 
@@ -24,7 +26,7 @@ class MainWindow{
   string colortest = "50";
   string help = "";
   string userText = "";
-  string usertoa = "";
+  
 
   int humidity = 80;
 
@@ -43,7 +45,17 @@ class MainWindow{
   Component input_colortest = Input(&help, "Color");
   Component input_user = Input(&userText, "ENTER: ");
   Component user_to_answer = Input(&usertoa, "Enter your request: ");
+  //Component answer_area = 
   
+  auto input_option = InputOption();
+  string input_add_content;
+  input_option.on_enter = [&] {
+    //input_entries.push_back(input_add_content);
+    usertoa = input_add_content;
+    input_add_content = " ";
+  };
+  Component input_add = Input(&input_add_content, "Enter your request: ", input_option);
+
   //city name color changing func
   auto wtf = [&]{
     int temp = stoi(help);
@@ -69,6 +81,7 @@ class MainWindow{
     buttonuser,
     input_colortest,
     user_to_answer,
+    input_add,
   });
 
   auto input_renderer = Renderer(InputBox, [&] {
@@ -149,7 +162,9 @@ class MainWindow{
 
     hbox({
       filler(),
-      user_to_answer->Render(),
+      text("" + usertoa),
+      filler(),
+      input_add->Render(),
       filler(),
     }),
   }) |
@@ -187,5 +202,6 @@ int main() {
   shared_ptr<MainWindow> window(new MainWindow());
 
   window->windowBodyRender();
+  //window->dataReturn();
   
 }
