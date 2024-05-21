@@ -1,5 +1,9 @@
 {
   "dependencies": [
-    "ftxui"
+    "ftxui",
+    {
+      "name": "boost-beast",
+      "version>=": "1.85.0"
+    }
   ]
 }
