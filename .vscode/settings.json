@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "string": "cpp",
-        "bitset": "cpp",
-        "cstddef": "cpp",
-        "new": "cpp",
-        "ranges": "cpp"
-    }
-}
