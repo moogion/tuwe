@@ -38,9 +38,18 @@ class MainWindow{
   int colorS = 220;
   int colorV = 200;
 
+
+  int sizeg = Terminal::Size().dimy;
+  int sizef = Terminal::Size().dimx;
+  string sizew = to_string(sizeg);
+  auto funcsize = [&]{
+    int sizeg = Terminal::Size().dimy;
+  string sizew = to_string(sizeg);
+  };
+
   //SIZE OF 
-  const int sizex = 20;
-  const int sizey = 10;
+  int sizex = sizef/3;
+  int sizey = sizeg/3;
 
   int counter = 0;
 
@@ -97,7 +106,7 @@ class MainWindow{
                                       Color::GrayDark, Color::White);
 
   Component humiditySlider =   Slider( "" , &humidity , 0 , 100 , 1 );
-  Component buttonuser = Button("Enter " , wtf, style);
+  Component buttonuser = Button("Enter " , funcsize, style);
 
   auto Container1 = Container::Vertical({
     buttonuser,
@@ -106,6 +115,9 @@ class MainWindow{
     input_add,
     
   });
+
+auto screen = ScreenInteractive::Fullscreen();
+
   auto ContainerFuture = Container::Horizontal({
 
   });
@@ -115,13 +127,13 @@ auto future_renderer = Renderer(ContainerFuture, [&] {
         filler(),
         hbox({
         filler(),
-        text("sus:"),
+        text(""+sizew),
         filler(),
         })|border,
         filler(),
         hbox({
           filler(),
-        text("sus:"),
+        text(to_string(sizeg)),
         filler(),
         })|border,
         filler(),
@@ -339,17 +351,22 @@ filler(),
   });
 
   auto main_rendener = Renderer(mainContainer, [&] {
-    Element document = input_renderer -> Render();
+    //Element document = input_renderer -> Render();
     //lazy dont care
-    document = next_rendener -> Render();
+    Element document = next_rendener -> Render();
     // if (userText == "Нижний"){
     //   document = next_rendener -> Render();
     // }
+    int sizeg = Terminal::Size().dimy;
+  int sizef = Terminal::Size().dimx;
+  
+
+    
     return document;
   });
  
+  //auto screen = Screen::Create(Dimension::Fixed(32), Dimension::Fixed(10));
   
-  auto screen = ScreenInteractive::Fullscreen();
   screen.Loop(main_rendener);
   }
 };
