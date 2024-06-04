@@ -12,6 +12,8 @@
 #include "ftxui/dom/elements.hpp"  // for operator|, text, Element, hbox, separator, size, vbox, border, frame, vscroll_indicator, HEIGHT, LESS_THAN
 #include "ftxui/dom/elements.hpp"  // for operator|, separator, text, Element, flex, vbox, border
 #include "ftxui/screen/color.hpp"  // for Color, Color::Default, Color::GrayDark, Color::White
+#include "tuwe/client/client.hpp"
+
 using namespace std;
 using namespace ftxui;
 
@@ -366,12 +368,8 @@ class MainWindow {
 };
 
 int main() {
-  // Window1 * Window2 = new Window1();
+  // TODO: add parsing arguments for application options
+  tuwe::client::Application application;
 
-  // Window2->windowEx();
-
-  shared_ptr<MainWindow> window(new MainWindow());
-
-  window->windowBodyRender();
-  // window->dataReturn();
+  return application.execute();
 }
