@@ -84,146 +84,106 @@ auto doc = ftxui::gridbox({
 });
 
 auto block_general_conditions = ftxui::Renderer(ContainerBlocks, [] {
-  return ftxui::hbox({
-
-             
-                 ftxui::hbox({
-                     ftxui::filler(),
-                     ftxui::filler(),
-                 }) |
-                     ftxui::border |
-                     ftxui::flex,
-
-                 ftxui::hbox({
-                     ftxui::filler(),
-                 }) |
-                     ftxui::border |
-                     ftxui::flex,
-                 ftxui::filler(),
-             
-             ftxui::separator(),
-
-             
-                 ftxui::filler(),
-                 ftxui::hbox({
-                     ftxui::filler(),
-                 }) |
-                     ftxui::border |
-                     ftxui::flex,
-
-                 ftxui::hbox({
-                     ftxui::filler(),
-                 }) |
-                     ftxui::border |
-                     ftxui::flex,
-                 ftxui::filler(),
-             
-
-         }) |
-         ftxui::border;
-});
-
-auto block_general_conditions2 = ftxui::Renderer(ContainerBlocks, [] {
   return ftxui::vbox({
 
-             // первые два
+      // первые два
 
-             ftxui::hbox({
-                 ftxui::hbox({
-                     ftxui::vbox({
+      ftxui::hbox({
+          ftxui::hbox({
+              ftxui::filler(),
+              ftxui::vbox({
 
-                         ftxui::hbox({
-                             ftxui::filler(),
-                             ftxui::text("Влажность "),
-                             ftxui::filler(),
-                         }),
-                         ftxui::hbox({
-                             ftxui::filler(),
-                             ftxui::text(humidityString),
-                             ftxui::filler(),
-                         }),
+                  ftxui::hbox({
+                      ftxui::filler(),
+                      ftxui::text("Влажность "),
+                      ftxui::filler(),
+                  }),
+                  ftxui::hbox({
+                      ftxui::filler(),
+                      ftxui::text(humidityString),
+                      ftxui::filler(),
+                  }),
 
-                         humiditySlider->Render(),
+                  humiditySlider->Render(),
 
-                     }) | ftxui::border |
-                         ftxui::flex,
-                 }) | ftxui::border |
-                     ftxui::flex,
-                 ftxui::hbox({
-                     ftxui::vbox({
+              }),
+              ftxui::filler(),
+          }) | ftxui::border |
+              ftxui::flex,
+          ftxui::hbox({
+              ftxui::filler(),
+              ftxui::vbox({
 
-                         ftxui::filler(),
-                         ftxui::hbox({
-                             ftxui::filler(),
-                             ftxui::text("Ветер"),
-                             ftxui::filler(),
-                         }),
-                         ftxui::filler(),
-                         ftxui::filler(),
-                         ftxui::hbox({
+                  ftxui::filler(),
+                  ftxui::hbox({
+                      ftxui::filler(),
+                      ftxui::text("Ветер"),
+                      ftxui::filler(),
+                  }),
+                  ftxui::filler(),
+                  ftxui::filler(),
+                  ftxui::hbox({
 
-                             ftxui::filler(),
+                      ftxui::filler(),
 
-                             ftxui::text("←"),
-                             ftxui::filler(),
-                         }),
-                         ftxui::filler(),
-                     }) | ftxui::border |
-                         ftxui::flex,
-                 }) | ftxui::border |
-                     ftxui::flex,
+                      ftxui::text("←"),
+                      ftxui::filler(),
+                  }),
+                  ftxui::filler(),
+              }),
+              ftxui::filler(),
+          }) | ftxui::border |
+              ftxui::flex,
 
-             }) | ftxui::flex |
-                 ftxui::border,
+      }),
 
-             ftxui::hbox({
+      ftxui::hbox({
 
-                 ftxui::vbox({
+          ftxui::vbox({
 
-                     ftxui::filler(),
-                     ftxui::hbox({
-                         ftxui::filler(),
-                         ftxui::text("Ветер"),
-                         ftxui::filler(),
-                     }),
-                     ftxui::filler(),
-                     ftxui::filler(),
-                     ftxui::hbox({
+              ftxui::filler(),
+              ftxui::hbox({
+                  ftxui::filler(),
+                  ftxui::text("Ветер"),
+                  ftxui::filler(),
+              }),
+              ftxui::filler(),
+              ftxui::filler(),
+              ftxui::hbox({
 
-                         ftxui::filler(),
+                  ftxui::filler(),
 
-                         ftxui::text("←"),
-                         ftxui::filler(),
-                     }),
+                  ftxui::text("←"),
+                  ftxui::filler(),
+              }),
 
-                 }) | ftxui::border |
-                     ftxui::flex,
+          }) | ftxui::border |
+              ftxui::flex,
 
-                 ftxui::vbox({
+          ftxui::vbox({
 
-                     ftxui::filler(),
-                     ftxui::hbox({
-                         ftxui::filler(),
-                         ftxui::text("Ветер"),
-                         ftxui::filler(),
-                     }),
-                     ftxui::filler(),
-                     ftxui::filler(),
-                     ftxui::hbox({
+              ftxui::filler(),
+              ftxui::hbox({
+                  ftxui::filler(),
+                  ftxui::text("Ветер"),
+                  ftxui::filler(),
+              }),
+              ftxui::filler(),
+              ftxui::filler(),
+              ftxui::hbox({
 
-                         ftxui::filler(),
+                  ftxui::filler(),
 
-                         ftxui::text("←"),
-                         ftxui::filler(),
-                     }),
-                     ftxui::filler(),
-                 }) | ftxui::border |
-                     ftxui::flex,
+                  ftxui::text("←"),
+                  ftxui::filler(),
+              }),
+              ftxui::filler(),
+          }) | ftxui::border |
+              ftxui::flex,
 
-             }) | ftxui::flex,
+      }) | ftxui::flex,
 
-         }) |
-         ftxui::border;
+  });
 });
 auto block_general_conditions1 = ftxui::Renderer(ContainerBlocks, [] {
   return ftxui::hbox({
