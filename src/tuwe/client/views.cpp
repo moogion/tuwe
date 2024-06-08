@@ -1,9 +1,13 @@
 #include "tuwe/client/views.hpp"
 
 #include <ftxui/component/component.hpp>
+#include <string>
+
+int humidity = 50;
+std::string humidityString = std::to_string(humidity) + "%";
+ftxui::Component humiditySlider = ftxui::Slider("", &humidity, 0, 100, 1);
 
 namespace tuwe::client {
-
 MainView::MainView(const Application &app) : app(app) {
   ftxui::InputOption inputOptions{
       .placeholder = "Ваш город?",
@@ -16,6 +20,296 @@ MainView::MainView(const Application &app) : app(app) {
 
   this->Add(this->locationInput);
 }
+
+auto ContainerBlocks = ftxui::Container::Horizontal({
+
+});
+
+auto container_general_conditions = ftxui::Container::Horizontal({
+
+});
+
+auto blocks = ftxui::Renderer(ContainerBlocks, [] {
+  return ftxui::vbox({
+      ftxui::hbox({
+
+      }),
+
+  });
+});
+
+auto block_hourly_forecast = ftxui::Renderer(ContainerBlocks, [] {
+  return ftxui::vbox({
+      ftxui::text(" Часовая сводка"),
+      ftxui::hbox({
+          ftxui::filler(),
+          ftxui::vbox({
+              ftxui::text("18℃"),
+
+              ftxui::text("🌤"),
+              ftxui::text("12:00"),
+
+          }),
+          ftxui::filler(),
+          ftxui::vbox({
+              ftxui::text("18℃"),
+
+              ftxui::text("🌨"),
+              ftxui::text("13:00"),
+
+          }),
+          ftxui::filler(),
+          ftxui::vbox({
+              ftxui::text("18℃"),
+
+              ftxui::text("🌧"),
+              ftxui::text("14:00"),
+
+          }),
+          ftxui::filler(),
+          ftxui::vbox({
+              ftxui::text("18℃"),
+
+              ftxui::text("🌤"),
+              ftxui::text("15:00"),
+
+          }),
+          ftxui::filler(),
+      }) | ftxui::borderRounded,
+
+  });
+});
+auto doc = ftxui::gridbox({
+
+});
+
+auto block_general_conditions = ftxui::Renderer(ContainerBlocks, [] {
+  return ftxui::hbox({
+
+             
+                 ftxui::hbox({
+                     ftxui::filler(),
+                     ftxui::filler(),
+                 }) |
+                     ftxui::border |
+                     ftxui::flex,
+
+                 ftxui::hbox({
+                     ftxui::filler(),
+                 }) |
+                     ftxui::border |
+                     ftxui::flex,
+                 ftxui::filler(),
+             
+             ftxui::separator(),
+
+             
+                 ftxui::filler(),
+                 ftxui::hbox({
+                     ftxui::filler(),
+                 }) |
+                     ftxui::border |
+                     ftxui::flex,
+
+                 ftxui::hbox({
+                     ftxui::filler(),
+                 }) |
+                     ftxui::border |
+                     ftxui::flex,
+                 ftxui::filler(),
+             
+
+         }) |
+         ftxui::border;
+});
+
+auto block_general_conditions2 = ftxui::Renderer(ContainerBlocks, [] {
+  return ftxui::vbox({
+
+             // первые два
+
+             ftxui::hbox({
+                 ftxui::hbox({
+                     ftxui::vbox({
+
+                         ftxui::hbox({
+                             ftxui::filler(),
+                             ftxui::text("Влажность "),
+                             ftxui::filler(),
+                         }),
+                         ftxui::hbox({
+                             ftxui::filler(),
+                             ftxui::text(humidityString),
+                             ftxui::filler(),
+                         }),
+
+                         humiditySlider->Render(),
+
+                     }) | ftxui::border |
+                         ftxui::flex,
+                 }) | ftxui::border |
+                     ftxui::flex,
+                 ftxui::hbox({
+                     ftxui::vbox({
+
+                         ftxui::filler(),
+                         ftxui::hbox({
+                             ftxui::filler(),
+                             ftxui::text("Ветер"),
+                             ftxui::filler(),
+                         }),
+                         ftxui::filler(),
+                         ftxui::filler(),
+                         ftxui::hbox({
+
+                             ftxui::filler(),
+
+                             ftxui::text("←"),
+                             ftxui::filler(),
+                         }),
+                         ftxui::filler(),
+                     }) | ftxui::border |
+                         ftxui::flex,
+                 }) | ftxui::border |
+                     ftxui::flex,
+
+             }) | ftxui::flex |
+                 ftxui::border,
+
+             ftxui::hbox({
+
+                 ftxui::vbox({
+
+                     ftxui::filler(),
+                     ftxui::hbox({
+                         ftxui::filler(),
+                         ftxui::text("Ветер"),
+                         ftxui::filler(),
+                     }),
+                     ftxui::filler(),
+                     ftxui::filler(),
+                     ftxui::hbox({
+
+                         ftxui::filler(),
+
+                         ftxui::text("←"),
+                         ftxui::filler(),
+                     }),
+
+                 }) | ftxui::border |
+                     ftxui::flex,
+
+                 ftxui::vbox({
+
+                     ftxui::filler(),
+                     ftxui::hbox({
+                         ftxui::filler(),
+                         ftxui::text("Ветер"),
+                         ftxui::filler(),
+                     }),
+                     ftxui::filler(),
+                     ftxui::filler(),
+                     ftxui::hbox({
+
+                         ftxui::filler(),
+
+                         ftxui::text("←"),
+                         ftxui::filler(),
+                     }),
+                     ftxui::filler(),
+                 }) | ftxui::border |
+                     ftxui::flex,
+
+             }) | ftxui::flex,
+
+         }) |
+         ftxui::border;
+});
+auto block_general_conditions1 = ftxui::Renderer(ContainerBlocks, [] {
+  return ftxui::hbox({
+      ftxui::filler(),
+      // первые два
+      ftxui::hbox({
+          ftxui::filler(),
+          ftxui::vbox({
+              ftxui::filler(),
+              ftxui::hbox({
+                  ftxui::filler(),
+                  ftxui::text("Влажность "),
+                  ftxui::filler(),
+              }),
+              ftxui::hbox({
+                  ftxui::filler(),
+                  ftxui::text(humidityString),
+                  ftxui::filler(),
+              }),
+              ftxui::filler(),
+
+              humiditySlider->Render(),
+
+              ftxui::filler(),
+
+          }) | ftxui::border |
+              ftxui::flex,
+
+          ftxui::vbox({
+
+              ftxui::filler(),
+              ftxui::hbox({
+                  ftxui::filler(),
+                  ftxui::text("Ветер"),
+                  ftxui::filler(),
+              }),
+              ftxui::filler(),
+              ftxui::filler(),
+              ftxui::hbox({
+
+                  ftxui::filler(),
+
+                  ftxui::text("←"),
+                  ftxui::filler(),
+              }),
+              ftxui::filler(),
+          }) | ftxui::border |
+              ftxui::flex,
+          ftxui::filler(),
+      }),
+
+      ftxui::hbox({
+          ftxui::filler(),
+          ftxui::vbox({
+
+              ftxui::filler(),
+              ftxui::hbox({
+                  ftxui::filler(),
+                  ftxui::text("Ветер"),
+                  ftxui::filler(),
+              }),
+              ftxui::filler(),
+              ftxui::filler(),
+              ftxui::hbox({
+
+                  ftxui::filler(),
+
+                  ftxui::text("←"),
+                  ftxui::filler(),
+              }),
+              ftxui::filler(),
+          }) |
+              ftxui::border,
+
+      }),
+
+  });
+});
+ftxui::Component nDay = ftxui::Container::Vertical({});
+
+auto block_nday_forecast = ftxui::Renderer(ContainerBlocks, [] {
+  return ftxui::vbox({
+
+         }) |
+         ftxui::border;
+});
 
 ftxui::Element MainView::Render() {
   return ftxui::vbox({
@@ -64,11 +358,15 @@ ftxui::Element MainView::Render() {
                      }) | ftxui::borderEmpty,
                  }),
              }) | ftxui::borderEmpty,
+             block_hourly_forecast->Render(),
+             block_general_conditions->Render(),
              ftxui::hbox({
                  ftxui::text("❄ ") | ftxui::borderEmpty,
                  ftxui::separatorEmpty(),
                  ftxui::text("Today's temperature will be 40 lower than yesterday") | ftxui::vcenter,
+
              }) | ftxui::borderRounded,
+
          }) |
          ftxui::borderEmpty;
 }
