@@ -22,7 +22,9 @@ class Application {
  public:
   explicit Application();
 
-  ~Application();
+  ~Application() = default;
+
+  void changeView(ftxui::Component view);
 
   int execute();
 };

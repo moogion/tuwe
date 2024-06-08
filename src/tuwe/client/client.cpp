@@ -1,6 +1,7 @@
 #include "tuwe/client/client.hpp"
 
 #include <chrono>
+#include <exception>
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/loop.hpp>
 #include <functional>
@@ -18,20 +19,29 @@ Application::Application() : screen(this->createScreen()) {
   this->renderer = ftxui::Renderer(renderFunction);
 }
 
-Application::~Application() {
-  this->renderThread.join();
+ftxui::ScreenInteractive Application::createScreen() {
+  return ftxui::ScreenInteractive::Fullscreen();
 }
 
-ftxui::ScreenInteractive Application::createScreen() {
-  return ftxui::ScreenInteractive::FitComponent();
+void Application::changeView(ftxui::Component view) {
+  if (this->view) this->view->Detach();
+
+  this->view = std::move(view);
+  this->renderer->Add(this->view);
 }
 
 ftxui::Element Application::render() {
+  if (!this->view) {
+    return ftxui::text("Fallback view");
+  }
+
   return this->view->Render();
 }
 
 int Application::execute() {
-  this->view = std::make_shared<MainView>(*this);
+  this->changeView(
+      std::make_shared<MainView>(*this)
+  );
 
   this->renderThread = std::thread(
       &ftxui::ScreenInteractive::Loop,
@@ -39,7 +49,9 @@ int Application::execute() {
       std::ref(this->renderer)
   );
 
-  return 0;
+  this->renderThread.join();
+
+  return EXIT_SUCCESS;
 }
 
 }  // namespace tuwe::client
