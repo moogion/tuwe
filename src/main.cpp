@@ -1,22 +1,24 @@
-#include <stdlib.h>
+#include <csignal>
+#include <exception>
 
-#include <ftxui/screen/screen.hpp>  // for Pixel
-#include <memory>  // for allocator, __shared_ptr_access, shared_ptr
-#include <string>  // for string
-
-#include "ftxui/component/captured_mouse.hpp"  // for ftxui
-#include "ftxui/component/component.hpp"       // for Button, Renderer, Vertical
-#include "ftxui/component/component_base.hpp"  // for ComponentBase, Component
-#include "ftxui/component/component_options.hpp"   // for ButtonOption
-#include "ftxui/component/screen_interactive.hpp"  // for ScreenInteractive
-#include "ftxui/dom/elements.hpp"  // for operator|, text, Element, hbox, separator, size, vbox, border, frame, vscroll_indicator, HEIGHT, LESS_THAN
-#include "ftxui/dom/elements.hpp"  // for operator|, separator, text, Element, flex, vbox, border
-#include "ftxui/screen/color.hpp"  // for Color, Color::Default, Color::GrayDark, Color::White
 #include "tuwe/client/client.hpp"
 
-
-
 int main() {
+  std::set_terminate([] {
+    try {
+      std::exception_ptr exception = std::current_exception();
+      if (!exception) return;
+
+      std::rethrow_exception(exception);
+    } catch (const std::exception& e) {
+      std::cerr << "Exception: " << e.what() << std::endl;
+    } catch (...) {
+      std::cerr << "Unknown exception caught" << std::endl;
+    }
+
+    std::exit(EXIT_FAILURE);
+  });
+
   // TODO: add parsing arguments for application options
   tuwe::client::Application application;
 
