@@ -1,3 +1,5 @@
+#pragma once
+
 #include <ftxui/component/component.hpp>
 #include <memory>
 
@@ -9,9 +11,11 @@ class MainView : public ftxui::ComponentBase {
  private:
   const Application &app;
 
+  ftxui::Component locationInput;
+
  public:
   explicit MainView(const Application &app);
-  ftxui::Element Render();
+  ftxui::Element Render() override;
 };
 
 }  // namespace tuwe::client
