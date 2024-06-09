@@ -8,15 +8,14 @@
 #include <iostream>
 #include <thread>
 
+#include "tuwe/client/components.hpp"
 #include "tuwe/client/views.hpp"
 
 namespace tuwe::client {
 
 Application::Application() : screen(this->createScreen()) {
-  const std::function<ftxui::Element()> renderFunction = std::bind(
-      &Application::render, this
-  );
-  this->renderer = ftxui::Renderer(renderFunction);
+  const std::function<ftxui::Element()> render = std::bind(&Application::render, this);
+  this->renderer = ftxui::Renderer(render);
 }
 
 ftxui::ScreenInteractive Application::createScreen() {

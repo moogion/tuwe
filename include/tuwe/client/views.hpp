@@ -11,7 +11,16 @@ class MainView : public ftxui::ComponentBase {
  private:
   const Application &app;
 
+  ftxui::Component scroller;
+
   ftxui::Component locationInput;
+  ftxui::Component locationButton;
+  
+  ftxui::Component scrollerHourly;
+
+  ftxui::Element renderHourly();
+
+  ftxui::Element renderView();
 
  public:
   explicit MainView(const Application &app);
