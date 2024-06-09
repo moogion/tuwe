@@ -3,6 +3,7 @@ set(HEADER_LIST "${Tuwe_SOURCE_DIR}/include/main.hpp")
 add_executable(TuweApp ${HEADER_LIST}
     main.cpp
     tuwe/client/client.cpp
+    tuwe/client/components.cpp
     tuwe/client/views.cpp)
 
 find_package(ftxui CONFIG REQUIRED)
