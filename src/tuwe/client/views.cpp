@@ -204,8 +204,8 @@ ftxui::Element MainView::RenderWeather() {
     gust = ftxui::emptyElement();
   }
 
-  static const std::vector<std::string> wind_direction_names({"С", "В", "Ю", "З"});
-  static const std::vector<std::string> wind_direction_icons({"🡓", "🡐", "🡒", "🡑"});
+  static const std::vector<std::string> wind_direction_names({"З", "С", "В", "Ю"});
+  static const std::vector<std::string> wind_direction_icons({"🡐", "🡑", "🡒", "🡓"});
 
   const int wind_direction_index = current_weather.wind.deg / 90 % 4;
 
