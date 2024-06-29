@@ -1,32 +1,39 @@
 #pragma once
 
+#include <boost/asio/thread_pool.hpp>
+#include <ftxui/component/component.hpp>
 #include <ftxui/component/screen_interactive.hpp>
-#include <ftxui/dom/elements.hpp>
 #include <memory>
-#include <thread>
+
+#include "tuwe/client/weather.hpp"
 
 namespace tuwe::client {
 
 class Application {
- private:
-  ftxui::Component view;
-  ftxui::ScreenInteractive screen;
-
-  ftxui::ScreenInteractive createScreen();
-
-  ftxui::Component renderer;
-  ftxui::Element render();
-
-  std::thread renderThread;
-
  public:
   explicit Application();
 
-  ~Application() = default;
+  int Execute();
 
-  void changeView(ftxui::Component view);
+  void ChangeView(ftxui::Component view);
 
-  int execute();
+  ftxui::ScreenInteractive& getScreen();
+
+  asio::thread_pool& GetThreadPool();
+
+  WeatherClient& GetWeatherClient();
+
+ private:
+  ftxui::ScreenInteractive screen_;
+
+  ftxui::Component view_;
+  ftxui::Component renderer_;
+
+  ftxui::Element Render();
+
+  std::unique_ptr<asio::thread_pool> thread_pool_;
+
+  std::unique_ptr<WeatherClient> weather_client_;
 };
 
 }  // namespace tuwe::client
