@@ -1,5 +1,6 @@
 #include <csignal>
 #include <exception>
+#include <iostream>
 
 #include "tuwe/client/client.hpp"
 
@@ -22,5 +23,6 @@ int main() {
   // TODO: add parsing arguments for application options
   tuwe::client::Application application;
 
-  return application.execute();
+  // Run the application
+  return application.Execute();
 }
