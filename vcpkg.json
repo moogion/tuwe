@@ -1,9 +1,33 @@
 {
   "dependencies": [
-    "ftxui",
+    "fmt",
+    {
+      "name": "ftxui",
+      "version>=": "5.0.0"
+    },
     "openssl",
     {
+      "name": "boost-thread",
+      "version>=": "1.85.0"
+    },
+    {
+      "name": "boost-coroutine2",
+      "version>=": "1.85.0"
+    },
+    {
       "name": "boost-beast",
+      "version>=": "1.85.0"
+    },
+    {
+      "name": "boost-url",
+      "version>=": "1.85.0"
+    },
+    {
+      "name": "boost-json",
+      "version>=": "1.85.0"
+    },
+    {
+      "name": "boost-optional",
       "version>=": "1.85.0"
     }
   ]
